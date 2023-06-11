@@ -70,7 +70,7 @@ dict_cat ={ 'Situation familiale' : ['NAME_FAMILY_STATUS', 'Répartition Situati
 @st.cache_resource()
 def prediction(id :int):
 # Fonction de chargement du modèle via API
-    r = requests.get('http://127.0.0.1:8000/prediction', {'id':id})
+    r = requests.get('https://prediction-api.herokuapp.com/prediction', {'id':id})
     try:
         response = r.json()
         resultat = response
@@ -83,7 +83,7 @@ def prediction(id :int):
 def shap_local(id :int):
 ## Fonction de features importance locales chargement du modèle via API
 ## Et sépare les positifs et negatifs
-    res = requests.get('http://127.0.0.1:8000/feat_local', {'id':id})
+    res = requests.get('https://prediction-api.herokuapp.com/feat_local', {'id':id})
     try:
         response = res.json()
         resultat = response
@@ -109,7 +109,7 @@ def shap_local(id :int):
 @st.cache_data(persist = True)
 def shap_glob():
 ## Fonction de features importance globales chargement du modèle via API
-    res = requests.get('http://127.0.0.1:8000/feat_glob')
+    res = requests.get('https://prediction-api.herokuapp.com/feat_glob')
     try:
         response = res.json()
         resultat = response
