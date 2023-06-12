@@ -1,5 +1,5 @@
 shap
-json
+jsonschema
 joblib
 pandas
 numpy
@@ -10,3 +10,4 @@ requests
 matplotlib.pyplot
 seaborn
 streamlit
+lightgbm
