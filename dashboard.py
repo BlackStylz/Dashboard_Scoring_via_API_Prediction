@@ -141,12 +141,12 @@ def shapey_display(df_g, df_l):
 @st.cache_data(persist = True)
 def data_load():
 ## Fonction de chargement et fusion des données
-    df = pd.read_csv('./Data/test_op.csv')
-    df_1 = pd.read_csv('./Data/application_test.csv')
+    df = pd.read_csv('Data/test_op.csv')
+    df_1 = pd.read_csv('Data/application_test.csv')
     df_test = df[features_rfe].merge(df_1[features_base], how='left')
     #Jeu d'entrainement
-    df_2 = pd.read_csv('./Data/train_op.csv')
-    df_3 = pd.read_csv('./Data/application_train.csv')
+    df_2 = pd.read_csv('Data/train_op.csv')
+    df_3 = pd.read_csv('Data/application_train.csv')
     df_train = df_2[features_rfe].merge(df_3[features_base], how='left')
     df_comp = pd.concat([df_test,df_train]).reset_index()
     df_train = prepo_age(df_train)
