@@ -5,18 +5,11 @@ import pandas as pd
 import numpy as np
 import uvicorn
 from fastapi import FastAPI
-from pydantic import BaseModel
+#from pydantic import BaseModel
 #from pydantic_numpy import NDArrayFp32
 
 # Creation of the API
 app = FastAPI()
-
-class Shapey (BaseModel):
-    shap_glob : dict
-
-@app.get("/")
-async def root():
-    return{'message':'API Credit Scoring'}
 
 
 df = pd.read_csv('Data/test_op.csv')
@@ -41,6 +34,10 @@ def score_proba(proba):
     else:
         score = 'A'
     return score
+
+@app.get("/")
+async def root():
+    return{'message':'API Credit Scoring'}
 
 
 # Prédiction
