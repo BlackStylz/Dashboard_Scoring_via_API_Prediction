@@ -1,5 +1,5 @@
 shap
-json
+jsonschema
 joblib
 pandas
 numpy
