@@ -1,4 +1,3 @@
-import mlflow
 import shap
 import json
 import joblib
@@ -88,5 +87,5 @@ def feat_glob():
     return features_shapey
 
 
-if __name__ == '__main__':
-    uvicorn.run(app)
+#if __name__ == '__main__':
+#    uvicorn.run(app)
