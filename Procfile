@@ -1,1 +1,1 @@
-worker: python -m streamlit run dasboard.py
+web: sh setup.sh && streamlit run dashboard.py

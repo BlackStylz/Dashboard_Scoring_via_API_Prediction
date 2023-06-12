@@ -13,20 +13,20 @@ import streamlit as st
 
 # Liste et dictionnaire utile pour traitement
 features_base = ['SK_ID_CURR',
-                'CODE_GENDER',
-                'NAME_EDUCATION_TYPE',
-                'NAME_FAMILY_STATUS',
-                'FLAG_OWN_REALTY',
-                'OCCUPATION_TYPE',
-                'REGION_RATING_CLIENT_W_CITY',
-                'CNT_FAM_MEMBERS',
-                'NAME_INCOME_TYPE',
-                'NAME_CONTRACT_TYPE',
-                'EXT_SOURCE_1',
-                'NAME_HOUSING_TYPE',
-                'EXT_SOURCE_2',
-                'EXT_SOURCE_3',
-                'FLAG_DOCUMENT_3']
+                 'CODE_GENDER',
+                 'NAME_EDUCATION_TYPE',
+                 'NAME_FAMILY_STATUS',
+                 'FLAG_OWN_REALTY',
+                 'OCCUPATION_TYPE',
+                 'REGION_RATING_CLIENT_W_CITY',
+                 'CNT_FAM_MEMBERS',
+                 'NAME_INCOME_TYPE',
+                 'NAME_CONTRACT_TYPE',
+                 'EXT_SOURCE_1',
+                 'NAME_HOUSING_TYPE',
+                 'EXT_SOURCE_2',
+                 'EXT_SOURCE_3',
+                 'FLAG_DOCUMENT_3']
 
 features_rfe = ['SK_ID_CURR',
                 'DAYS_BIRTH',
@@ -40,8 +40,7 @@ features_rfe = ['SK_ID_CURR',
                 'ANNUITY_INCOME_PERC',
                 'PAYMENT_RATE',
                 'INSTAL_DPD_MAX',
-                'POS_MONTHS_BALANCE_MAX',
-                'TARGET']
+                'POS_MONTHS_BALANCE_MAX']
 
 dict_feat ={ 'Age' : ['AGE', 'Distribution Age', 'Age(Années)'],
             'Revenu Total': ['AMT_INCOME_TOTAL', 'Distribution Revenu total', 'Revenu($)'],
@@ -52,7 +51,7 @@ dict_feat ={ 'Age' : ['AGE', 'Distribution Age', 'Age(Années)'],
             'Balance Mensuelle': ['POS_MONTHS_BALANCE_MAX', 'Distribution Max', 'Balance'],
             'Score ext 1' : ['EXT_SOURCE_1', 'Distribution Score ext 1', 'Scores'],
             'Score ext 2' : ['EXT_SOURCE_2', 'Distribution Score ext 2', 'Scores'],
-            'Score ext 3' : ['EXT_SOURCE_3', 'Distribution Score ext 3', 'Scores'],
+            'Score ext 3' : ['EXT_SOURCE_3', 'Distribution Score ext 3', 'Scores']
 }
 
 dict_cat ={ 'Situation familiale' : ['NAME_FAMILY_STATUS', 'Répartition Situation familiale', 'Status'],
@@ -124,7 +123,7 @@ def shap_glob():
 
 @st.cache_data(persist = True)
 def shapey_display(df_g, df_l):
-
+ #Fonction pour afficher features importance
     st.write(df_g)
     #fig1, ax1 = plt.subplots(figsize=(8, 4))
     #sns.barplot(df_g, y=df_g['features'], x=df_g['valeurs'], color='b', ax=ax1)
@@ -141,12 +140,12 @@ def shapey_display(df_g, df_l):
 @st.cache_data(persist = True)
 def data_load():
 ## Fonction de chargement et fusion des données
-    df = pd.read_csv('./Data/test_op.csv', index_col='Unnamed: 0')
-    df_1 = pd.read_csv('./Data/application_test.csv')
+    df = pd.read_csv('Data/test_op.csv')
+    df_1 = pd.read_csv('Data/application_test.csv')
     df_test = df[features_rfe].merge(df_1[features_base], how='left')
     #Jeu d'entrainement
-    df_2 = pd.read_csv('./Data/train_op.csv', index_col='Unnamed: 0')
-    df_3 = pd.read_csv('./Data/application_train.csv')
+    df_2 = pd.read_csv('Data/train_op.csv')
+    df_3 = pd.read_csv('Data/application_train.csv')
     df_train = df_2[features_rfe].merge(df_3[features_base], how='left')
     df_comp = pd.concat([df_test,df_train]).reset_index()
     df_train = prepo_age(df_train)
