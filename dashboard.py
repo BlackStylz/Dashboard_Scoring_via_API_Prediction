@@ -52,7 +52,7 @@ dict_feat ={ 'Age' : ['AGE', 'Distribution Age', 'Age(Années)'],
             'Balance Mensuelle': ['POS_MONTHS_BALANCE_MAX', 'Distribution Max', 'Balance'],
             'Score ext 1' : ['EXT_SOURCE_1', 'Distribution Score ext 1', 'Scores'],
             'Score ext 2' : ['EXT_SOURCE_2', 'Distribution Score ext 2', 'Scores'],
-            'Score ext 3' : ['EXT_SOURCE_3', 'Distribution Score ext 3', 'Scores'],
+            'Score ext 3' : ['EXT_SOURCE_3', 'Distribution Score ext 3', 'Scores']
 }
 
 dict_cat ={ 'Situation familiale' : ['NAME_FAMILY_STATUS', 'Répartition Situation familiale', 'Status'],
