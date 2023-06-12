@@ -19,7 +19,8 @@ async def root():
     return{'message':'API Credit Scoring'}
 
 
-df = pd.read_csv('./Data/test_op.csv', index_col='SK_ID_CURR')
+df = pd.read_csv('./Data/test_op.csv')
+df.set_index('SK_ID_CURR', drop = True)
 df.drop(['TARGET', 'Unnamed: 0'], axis=1, inplace= True)
 df_t= pd.read_csv('./Data/train_op.csv', index_col='SK_ID_CURR')
 df_t.drop(['TARGET', 'Unnamed: 0'], axis=1, inplace= True)
