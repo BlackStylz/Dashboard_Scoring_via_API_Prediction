@@ -141,7 +141,7 @@ def shapey_display(df_g, df_l):
 @st.cache_data(persist = True)
 def data_load():
 ## Fonction de chargement et fusion des données
-    df = pd.read_csv('./Data/test_op.csv)
+    df = pd.read_csv('./Data/test_op.csv')
     df_1 = pd.read_csv('./Data/application_test.csv')
     df_test = df[features_rfe].merge(df_1[features_base], how='left')
     #Jeu d'entrainement
