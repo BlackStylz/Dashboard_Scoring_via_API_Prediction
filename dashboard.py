@@ -40,8 +40,7 @@ features_rfe = ['SK_ID_CURR',
                 'ANNUITY_INCOME_PERC',
                 'PAYMENT_RATE',
                 'INSTAL_DPD_MAX',
-                'POS_MONTHS_BALANCE_MAX',
-                'TARGET']
+                'POS_MONTHS_BALANCE_MAX']
 
 dict_feat ={ 'Age' : ['AGE', 'Distribution Age', 'Age(Années)'],
             'Revenu Total': ['AMT_INCOME_TOTAL', 'Distribution Revenu total', 'Revenu($)'],
