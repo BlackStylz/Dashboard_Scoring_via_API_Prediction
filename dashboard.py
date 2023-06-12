@@ -124,7 +124,7 @@ def shap_glob():
 
 @st.cache_data(persist = True)
 def shapey_display(df_g, df_l):
-
+ #Fonction pour afficher features importance
     st.write(df_g)
     #fig1, ax1 = plt.subplots(figsize=(8, 4))
     #sns.barplot(df_g, y=df_g['features'], x=df_g['valeurs'], color='b', ax=ax1)
@@ -143,7 +143,7 @@ def data_load():
 ## Fonction de chargement et fusion des données
     df = pd.read_csv('./Data/test_op.csv')#, index_col='Unnamed: 0')
     df_1 = pd.read_csv('./Data/application_test.csv')
-    df_test = df[features_rfe].merge(df_1[features_base], how='left')
+    df_test = df.loc[:, features_rfe].merge(df_1.loc[:,features_base], how='left')
     #Jeu d'entrainement
     df_2 = pd.read_csv('./Data/train_op.csv')#, index_col='Unnamed: 0')
     df_3 = pd.read_csv('./Data/application_train.csv')
