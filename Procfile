@@ -1,2 +1,2 @@
-worker: python -m streamlit run dasboard.py
-worker: python -m uvicorn api:app
+web: python -m streamlit run dasboard.py
+web: python -m uvicorn api:app
