@@ -65,7 +65,13 @@ dict_cat ={ 'Situation familiale' : ['NAME_FAMILY_STATUS', 'Répartition Situati
         'Fournir le document 3' : ['FLAG_DOCUMENT_3', 'Répartition possesion document 3', 'Status']
 }
 
-
+@st.cache_data(persist = True)
+def data_load():
+## Fonction de chargement et fusion des données
+    df_test= pd.read_csv('Data/test_dash.csv')
+    df_comp= pd.read_csv('Data/comp_dash.csv')
+    return df_test, df_comp
+  
 @st.cache_resource()
 def prediction(id :int):
 # Fonction de chargement du modèle via API
@@ -122,7 +128,7 @@ def shap_glob():
 
 
 @st.cache_data(persist = True)
-def shapey_display(df_g, df_l):
+def shapey_display(df_l):
  #Fonction pour afficher features importance
     st.write(df_g)
     #fig1, ax1 = plt.subplots(figsize=(8, 4))
@@ -136,23 +142,6 @@ def shapey_display(df_g, df_l):
     plt.gca().set(ylabel='$Features$', xlabel='$features Importance$')
     plt.yticks(df_l.index, df_l['features'], fontsize=18)
     st.pyplot(fig)
-
-@st.cache_data(persist = True)
-def data_load():
-## Fonction de chargement et fusion des données
-    df = pd.read_csv('Data/test_op.csv')
-    df_1 = pd.read_csv('Data/application_test.csv')
-    df_test = df[features_rfe].merge(df_1[features_base], how='left')
-    #Jeu d'entrainement
-    df_2 = pd.read_csv('Data/train_op.csv')
-    df_3 = pd.read_csv('Data/application_train.csv')
-    df_train = df_2[features_rfe].merge(df_3[features_base], how='left')
-    df_comp = pd.concat([df_test,df_train]).reset_index()
-    df_train = prepo_age(df_train)
-    df_test = prepo_age(df_test)
-    df_comp = prepo_age(df_comp)
-    del df_1, df_2, df_3
-    return df, df_train, df_test, df_comp
 
 @st.cache_data(persist = True)
 def kde_display(train, test, comp, id):
@@ -204,19 +193,12 @@ def pie_bar_display(data, var, id,selec):
 
     st.pyplot(fig)
 
-def prepo_age(df):
-# Fonction de Traitement de la variable en jour (age et ancienneté)
-    df = df[df['CODE_GENDER'] != 'XNA']
-    df['AGE'] = round((df['DAYS_BIRTH'] / -365), 0)
-    df['JOB_SENIORITY'] = round((df['DAYS_EMPLOYED'] / -365), 0)
-    return df
-
 def main():
 #En-tete
     st.markdown("<h1 style='text-align: center;'>DASHBOARD MODELE DE SCORING</h1>", unsafe_allow_html=True)
     st.sidebar.image('./images/Logo.png', use_column_width= 'always')
 #Chargement Data
-    data, data_train, data_test, data_comp = data_load()
+    data_test, data_comp = data_load()
 #Sidebar
     rech = st.sidebar.radio('Recherche client:', ('Saisie Manuelle','Selection'))
     if rech == 'Saisie Manuelle':
@@ -307,8 +289,7 @@ def main():
                         st.markdown("- " + n +"\n")
 
             if st.checkbox('Afficher graphe', False):
-                df_glob = shap_glob()
-                shapey_display(df_glob,df_local)
+                shapey_display(df_local)
 
 ##### Partie Comparaison
         if st.sidebar.checkbox('Comparaison', False):
