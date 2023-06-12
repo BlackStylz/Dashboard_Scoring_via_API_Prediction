@@ -7,7 +7,7 @@ uvicorn
 fastapi
 pydantic
 requests
-matplotlib.pyplot
+matplotlib
 seaborn
 streamlit
 lightgbm
