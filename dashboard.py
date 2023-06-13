@@ -93,7 +93,7 @@ def shap_local(id :int):
         response = res.json()
         resultat = response
     except:
-        st.write("Error from server: " + str(r.content))
+        st.write("Error from server: " + str(res.content))
         resultat = res
 
     fort = []
