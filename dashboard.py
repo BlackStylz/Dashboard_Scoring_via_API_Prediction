@@ -281,10 +281,15 @@ def main():
 #                     st.write("Points forts")
 #                     for i in plus:
 #                         st.markdown("- " + i +"\n")
+                    data_df = pd.DataFrame(
+                      {
+                        "points forts": plus,
+                      }
+                    )
                     st.data_editor(
-                      plus,
+                      data_df,
                       column_config={
-                        plus: st.column_config.TextColumn(
+                        'points forts': st.column_config.TextColumn(
                           "Points forts",
                           help="Streamlit **widget** commands 🎈",
                           default="st.",
@@ -295,9 +300,28 @@ def main():
                       hide_index=True,
                     )
                 with col2:
-                    st.write("Points faibles")
-                    for n in moins:
-                        st.markdown("- " + n +"\n")
+                    data_df = pd.DataFrame(
+                      {
+                        "points faibles": moins,
+                      }
+                    )
+                    st.data_editor(
+                      data_df,
+                      column_config={
+                        'points faibles': st.column_config.TextColumn(
+                          "Points faibles",
+                          help="Streamlit **widget** commands 🎈",
+                          default="st.",
+                          max_chars=50,
+                          validate="^st\.[a-z_]+$",
+                        )
+                      },
+                      hide_index=True,
+                    )
+#                     st.write("Points faibles")
+#                     for n in moins:
+#                         st.markdown("- " + n +"\n")
+   
 
             if st.checkbox('Afficher graphe', False):
                 shapey_display(df_local)
