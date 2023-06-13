@@ -135,7 +135,7 @@ def shapey_display(dg_g, df_l):
     fig, ax = plt.subplots(figsize=(20, 10), dpi= 80)
     ax = plt.gca()
     plt.hlines(y=df_l.index, xmin=0, xmax=df_l['valeurs'], alpha=0.4, color=df_l['colors'], linewidth=50)
-    plt.gca().set(ylabel='$Features$', xlabel='$features Importance$', fontsize=18)
+    plt.gca().set(ylabel='$Features$', xlabel='$features Importance$')
     plt.yticks(df_l.index, df_l['features'], fontsize=18)
     st.pyplot(fig)
     
