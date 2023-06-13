@@ -57,7 +57,7 @@ async def prediction(id : int):
 @app.get("/feat_local")
 def feat_local(id:int):
     X = pd.DataFrame(df.loc[id, :]).T
-    explainer = shap.Explainer(clf)
+    explainer = shap.Explainer(clf,df)
     shap_local_val = explainer(X)
     features_shap = {}
     for n in range (-1,-11,-1):
