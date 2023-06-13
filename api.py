@@ -55,7 +55,7 @@ def prediction(id : int):
     gc.collect()
     return result
 
-SHAP features local
+#SHAP features local
 @app.get("/feat_local")
 def feat_local(id:int):
     X = pd.DataFrame(df.loc[id, :]).T
