@@ -19,7 +19,7 @@ df.drop(['Unnamed: 0'], axis=1, inplace= True)
 feats =  list(df.columns)
 model = joblib.load('model_sans_seuil.sav')
 clf = model['classifier']
-explainer = shap.Explainer(clf)
+#explainer = shap.Explainer(clf)
 del model
 gc.collect()
 
