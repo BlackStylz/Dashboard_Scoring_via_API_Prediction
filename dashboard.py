@@ -122,14 +122,15 @@ def shap_glob():
         st.write("Error from server: " + str(r.content))
         resultat = res
     resu_df = pd.DataFrame(data=resultat.items(), columns =['features', 'valeurs'])
-    resu_df.sort_values('valeurs', inplace=True)
+    resu_df.sort_values('valeurs', ascending=False, inplace=True)
     resu_df.reset_index(inplace=True, drop=True)
     return resu_df
 
 
 @st.cache_data(persist = True)
-def shapey_display(df_l):
- ## Fonction pour afficher les features importance locales
+def shapey_display(dg_g, df_l):
+ ## Fonction pour afficher les features importance locales et globales
+    sns.set_theme()
     st.write("Local")
     fig, ax = plt.subplots(figsize=(20, 10), dpi= 80)
     ax = plt.gca()
@@ -137,10 +138,18 @@ def shapey_display(df_l):
     plt.gca().set(ylabel='$Features$', xlabel='$features Importance$', fontsize=18)
     plt.yticks(df_l.index, df_l['features'], fontsize=18)
     st.pyplot(fig)
+    
+    st.write("Global")
+    temp = shap_glob()
+    fig1, ax1 = plt.subplots(figsize=(8, 4))
+    sns.barplot(data=df_g, y=df_g['features'], x=df_g['valeurs'], color ='blue', ax=ax1)
+    ax1.set(xlabel='features importance', ylabel='features')
+    ax1.legend()
+    st.pyplot(fig1)
 
 @st.cache_data(persist = True)
 def kde_display(train, test, comp, id):
-#Fonction qui permet d'afficher les distribution des variable
+#Fonction qui permet d'afficher les distribution des variables
     sns.set_theme()
     fig, ax = plt.subplots(figsize=(8, 4))
     sns.kdeplot(train[comp[0]], color ='blue', ax=ax)
@@ -156,6 +165,7 @@ def kde_display(train, test, comp, id):
 def pie_bar_display(data, data_t, var, id,selec):
 #Fonction qui permet d'afficher les countplot et les pie chart
 ## Countplot
+    sns.set_theme()
     if selec == 'Countplot':
         fig, ax = plt.subplots()
         sns.set_style("darkgrid")
@@ -318,7 +328,8 @@ def main():
 
 
             if st.checkbox('Afficher graphe', False):
-                shapey_display(df_local)
+              df_glob = shap_glob()
+              shapey_display(df_glob,df_local)
 
 ##### Partie Comparaison
         if st.sidebar.checkbox('Comparaison', False):
@@ -372,8 +383,6 @@ def main():
                             pie_bar_display(data_comp, data_test, dict_cat[cat_3], ide, selec_4)
 
     st.markdown("Auteur: Stéphane LUBIN")
-    temp = shap_glob()
-    st.write(temp)
 
 if __name__ == '__main__':
     main()
