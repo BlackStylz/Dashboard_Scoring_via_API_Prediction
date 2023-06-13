@@ -22,7 +22,7 @@ df.drop(['Unnamed: 0','Unnamed: 0.1','TARGET'], axis=1, inplace= True)
 feats =  list(df.columns)
 model = joblib.load('model_sans_seuil.sav')
 clf = model['classifier']
-explainer = shap.Explainer(clf)
+#explainer = shap.Explainer(clf)
 gc.collect()
 
 
@@ -40,7 +40,7 @@ def score_proba(proba):
 
 # Prédiction
 @app.get("/prediction")
-def prediction(id : int):
+async def prediction(id : int):
     #Chargement du modèle
     X = pd.DataFrame(df.loc[id, :]).T
     proba = clf.predict_proba(X)[:,1][0]
