@@ -1,4 +1,4 @@
-### Script de conception du dashboear qui fait appel a une API pour la Prédiction
+### Script de conception du dashboard qui fait appel a une API pour la Prédiction
 ### Auteur: Stéphane LUBIN
 
 # Imports
