@@ -278,9 +278,6 @@ def main():
                 plus, moins, df_local = shap_local(ide)
                 col1, col2 = st.columns(2)
                 with col1:
-#                     st.write("Points forts")
-#                     for i in plus:
-#                         st.markdown("- " + i +"\n")
                     data_df = pd.DataFrame(
                       {
                         "points forts": plus,
@@ -318,10 +315,7 @@ def main():
                       },
                       hide_index=True,
                     )
-#                     st.write("Points faibles")
-#                     for n in moins:
-#                         st.markdown("- " + n +"\n")
-   
+
 
             if st.checkbox('Afficher graphe', False):
                 shapey_display(df_local)
@@ -329,10 +323,9 @@ def main():
 ##### Partie Comparaison
         if st.sidebar.checkbox('Comparaison', False):
             st.markdown("<h2 style='text-align: center;'>Comparaison du client: {}</h2>".format(ide), unsafe_allow_html=True)
-            comp = st.sidebar.radio('Comparaison:', ('Catégorie','Quantitative'), horizontal= True)
 
-            if comp == 'Quantitative':
-##### Partie Quantitative
+ ##### Partie Quantitative            
+            if st.sidebar.checkbox('Quantitative', False):
                 with st.container():
                     col1, col2 = st.columns(2)
                     with col1:
@@ -352,7 +345,7 @@ def main():
                             disp_4 = st.selectbox('Graphe 4', dict_feat.keys(), index=4, key=4)
                             kde_display(data_comp, data_test, dict_feat[disp_4], ide)
 ##### Partie Catégorie
-            else:
+            if st.sidebar.checkbox('Catégorie', False):
                 with st.container():
                     col1, col2 = st.columns(2)
 
