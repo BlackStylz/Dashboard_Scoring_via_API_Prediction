@@ -19,7 +19,7 @@ df.drop(['Unnamed: 0'], axis=1, inplace= True)
 feats =  list(df.columns)
 model = joblib.load('model_sans_seuil.sav')
 clf = model['classifier']
-#explainer = shap.Explainer(clf)
+explainer = shap.Explainer(clf)
 
 def score_proba(proba):
     if proba >= 0.5:
@@ -55,7 +55,7 @@ def prediction(id : int):
 @app.get("/feat_local")
 def feat_local(id:int):
     X = pd.DataFrame(df.loc[id, :]).T
-    #shap_local_val = explainer(X)
+    shap_local_val = explainer(X)
     features_shap = {}
     for n in range (-1,-11,-1):
         arg = abs(shap_local_val.values.mean(axis=0)).argsort()[n]
