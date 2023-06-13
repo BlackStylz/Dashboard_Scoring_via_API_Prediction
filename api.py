@@ -43,7 +43,7 @@ def score_proba(proba):
 # Prédiction
 @app.get("/prediction")
 async def prediction(id : int):
-    #Chargement du modèle
+    #Chargement du modèle, prédiction avec seuil de prédiction et score
     X = pd.DataFrame(df.loc[id, :]).T
     proba = clf.predict_proba(X)[:,1][0]
     pred = (proba > 0.424)
@@ -59,6 +59,7 @@ async def prediction(id : int):
 #SHAP features local
 @app.get("/feat_local")
 def feat_local(id:int):
+    #Fonction qui extrait et renvoie les features importance locales
     X = pd.DataFrame(df.loc[id, :]).T
     explainer = shap.Explainer(clf,df)
     shap_local_val = explainer(X)
@@ -77,6 +78,7 @@ def feat_local(id:int):
 #SHAP features globale
 @app.get("/feat_glob")
 def feat_glob():
+    #Fonction qui extrait et renvoie les features importance globales
     explainer = shap.Explainer(clf,df)
     shap_val = explainer(df)
     features_shapey = {}
