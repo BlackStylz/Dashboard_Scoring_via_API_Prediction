@@ -372,7 +372,8 @@ def main():
                             pie_bar_display(data_comp, data_test, dict_cat[cat_3], ide, selec_4)
 
     st.markdown("Auteur: Stéphane LUBIN")
-
+    temp = shap_glob()
+    st.write(temp)
 
 if __name__ == '__main__':
     main()
