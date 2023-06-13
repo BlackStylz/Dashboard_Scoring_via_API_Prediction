@@ -195,7 +195,7 @@ def main():
 #Chargement Data
     data_test, data_comp = data_load()
 #Sidebar
-    rech = st.sidebar.radio('Recherche client:', ('Saisie Manuelle','Selection') index=1)
+    rech = st.sidebar.radio('Recherche client:', ('Saisie Manuelle','Selection'), index=1)
     #Saisie Manuelle
     if rech == 'Saisie Manuelle':
         ide = st.sidebar.number_input('Numéro identifiant client',
