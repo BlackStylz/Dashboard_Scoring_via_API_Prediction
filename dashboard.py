@@ -68,8 +68,8 @@ dict_cat ={ 'Situation familiale' : ['NAME_FAMILY_STATUS', 'Répartition Situati
 @st.cache_data(persist = True)
 def data_load():
 ## Fonction de chargement et fusion des données
-    df_test= pd.read_csv('Data/test_dash.csv', index_col = 'Unnamed: 0')
-    df_comp= pd.read_csv('Data/comp_dash.csv', index_col = 'Unnamed: 0')
+    df_test= pd.read_csv('Data/test_dash.csv')#, index_col = 'Unnamed: 0')
+    df_comp= pd.read_csv('Data/comp_dash.csv')#, index_col = 'Unnamed: 0')
     return df_test, df_comp
   
 @st.cache_resource()
@@ -199,6 +199,8 @@ def main():
     st.sidebar.image('./images/Logo.png', use_column_width= 'always')
 #Chargement Data
     data_test, data_comp = data_load()
+    st.write(data_test)
+    st.write(data_comp)
 #Sidebar
     rech = st.sidebar.radio('Recherche client:', ('Saisie Manuelle','Selection'))
     if rech == 'Saisie Manuelle':
