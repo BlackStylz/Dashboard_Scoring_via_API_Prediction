@@ -128,7 +128,7 @@ def shap_glob():
 
 
 @st.cache_data(persist = True)
-def shapey_display(dg_g, df_l):
+def shapey_display(df_g, df_l):
  ## Fonction pour afficher les features importance locales et globales
     sns.set_theme()
     st.write("Local")
