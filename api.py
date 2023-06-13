@@ -84,7 +84,7 @@ def feat_glob():
         key = keys.astype('str').tolist()[0]
         val = abs(shap_val.values.mean(axis =0))[arg]
         features_shapey[key] = val
-    return features_shapey
+    return shap_val.to_json()#features_shapey
 
 
 #if __name__ == '__main__':
