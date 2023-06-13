@@ -64,7 +64,7 @@ def feat_local(id:int):
         arg = abs(shap_local_val.values.mean(axis=0)).argsort()[n]
         df_temp = pd.DataFrame(feats)
         keys = df_temp.loc[arg,:].values
-        key = keys.astype('str').tolist()[0][0]
+        key = keys.astype('str').tolist()[0]
         val = shap_local_val.values.mean(axis=0)[arg]
         features_shap[key] = val
     del X, shap_local_val, arg, df_temp, keys, key, val
