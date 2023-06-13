@@ -124,7 +124,7 @@ def shap_glob():
     resu_df = pd.DataFrame(data=resultat.items(), columns =['features', 'valeurs'])
     resu_df.sort_values('valeurs', inplace=True)
     resu_df.reset_index(inplace=True, drop=True)
-    return resultat
+    return resu_df
 
 
 @st.cache_data(persist = True)
