@@ -282,17 +282,18 @@ def main():
 #                     for i in plus:
 #                         st.markdown("- " + i +"\n")
                     st.data_editor(
-                        plus,
-                        column_config={
-                            plus: st.column_config.TextColumn(
-                                "Points forts",
-                                help="Streamlit **widget** commands 🎈",
-                                default="st.",
-                                max_chars=50,
-                                validate="^st\.[a-z_]+$",
-                            )
-                        },
-                        hide_index=True,
+                      plus,
+                      column_config={
+                        plus: st.column_config.TextColumn(
+                          "Points forts",
+                          help="Streamlit **widget** commands 🎈",
+                          default="st.",
+                          max_chars=50,
+                          validate="^st\.[a-z_]+$",
+                        )
+                      },
+                      hide_index=True,
+                    )
                 with col2:
                     st.write("Points faibles")
                     for n in moins:
