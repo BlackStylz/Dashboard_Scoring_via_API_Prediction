@@ -130,7 +130,7 @@ def shap_glob():
 @st.cache_data(persist = True)
 def shapey_display(df_l):
  #Fonction pour afficher features importance
-    st.write(df_g)
+    #st.write(df_g)
     #fig1, ax1 = plt.subplots(figsize=(8, 4))
     #sns.barplot(df_g, y=df_g['features'], x=df_g['valeurs'], color='b', ax=ax1)
     #st.pyplot(fig1)
