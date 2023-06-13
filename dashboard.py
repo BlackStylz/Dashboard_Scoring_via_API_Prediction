@@ -323,55 +323,53 @@ def main():
 ##### Partie Comparaison
         if st.sidebar.checkbox('Comparaison', False):
             st.markdown("<h2 style='text-align: center;'>Comparaison du client: {}</h2>".format(ide), unsafe_allow_html=True)
-      
-            side_col1, side_col2 = st.sidebar.columns(2)
 
  ##### Partie Quantitative 
-            with side_col1:
-              if st.sidebar.checkbox('Quantitative', False):
-                  with st.container():
-                      col1, col2 = st.columns(2)
-                      with col1:
-                          disp = st.selectbox('Graphe 1', dict_feat.keys(), index=0, key=1)
-                          kde_display(data_test, data_test, dict_feat[disp], ide)
 
-                      with col2:
-                          disp_3 = st.selectbox('Graphe 2', dict_feat.keys(), index=3, key=3)
-                          kde_display(data_comp, data_test, dict_feat[disp_3], ide)
-                  if st.checkbox('Afficher plus de graphe:', False):
-                      with st.container():
-                          col_1, col_2 = st.columns(2)
-                          with col_1:
-                              disp_2 = st.selectbox('Graphe 3', dict_feat.keys(), index=2, key=2)
-                              kde_display(data_comp, data_test, dict_feat[disp_2], ide)
-                          with col_2:
-                              disp_4 = st.selectbox('Graphe 4', dict_feat.keys(), index=4, key=4)
-                              kde_display(data_comp, data_test, dict_feat[disp_4], ide)
+            if st.sidebar.checkbox('Quantitative', False):
+                with st.container():
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        disp = st.selectbox('Graphe 1', dict_feat.keys(), index=0, key=1)
+                        kde_display(data_test, data_test, dict_feat[disp], ide)
+
+                    with col2:
+                        disp_3 = st.selectbox('Graphe 2', dict_feat.keys(), index=3, key=3)
+                        kde_display(data_comp, data_test, dict_feat[disp_3], ide)
+                if st.checkbox('Afficher plus de graphe:', False):
+                    with st.container():
+                        col_1, col_2 = st.columns(2)
+                        with col_1:
+                            disp_2 = st.selectbox('Graphe 3', dict_feat.keys(), index=2, key=2)
+                            kde_display(data_comp, data_test, dict_feat[disp_2], ide)
+                        with col_2:
+                            disp_4 = st.selectbox('Graphe 4', dict_feat.keys(), index=4, key=4)
+                            kde_display(data_comp, data_test, dict_feat[disp_4], ide)
 ##### Partie Catégorie
-            with side_col2:
-              if st.sidebar.checkbox('Catégorie', False):
-                  with st.container():
-                      col1, col2 = st.columns(2)
 
-                      with col1:
-                          cat_0 = st.selectbox('Graphe 1', dict_cat.keys(), index=0, key=0)
-                          selec = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=5)
-                          pie_bar_display(data_comp, data_test, dict_cat[cat_0], ide, selec)
-                      with col2:
-                          cat_1 = st.selectbox('Graphe 2', dict_cat.keys(), index=1, key=7)
-                          selec_1 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=6)
-                          pie_bar_display(data_comp, data_test, dict_cat[cat_1], ide, selec_1)
-                  if st.checkbox('Afficher plus de graphe:', False):
-                      with st.container():
-                          col_1, col_2 = st.columns(2)
-                          with col_1:
-                              cat_2 = st.selectbox('Graphe 3', dict_cat.keys(), index=2, key=8)
-                              selec_3 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=9)
-                              pie_bar_display(data_comp, data_test, dict_cat[cat_2], ide, selec_3)
-                          with col_2:
-                              cat_3 = st.selectbox('Graphe 4', dict_cat.keys(), index=3, key=10)
-                              selec_4 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=11)
-                              pie_bar_display(data_comp, data_test, dict_cat[cat_3], ide, selec_4)
+            if st.sidebar.checkbox('Catégorie', False):
+                with st.container():
+                    col1, col2 = st.columns(2)
+
+                    with col1:
+                        cat_0 = st.selectbox('Graphe 1', dict_cat.keys(), index=0, key=0)
+                        selec = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=5)
+                        pie_bar_display(data_comp, data_test, dict_cat[cat_0], ide, selec)
+                    with col2:
+                        cat_1 = st.selectbox('Graphe 2', dict_cat.keys(), index=1, key=7)
+                        selec_1 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=6)
+                        pie_bar_display(data_comp, data_test, dict_cat[cat_1], ide, selec_1)
+                if st.checkbox('Afficher plus de graphe:', False):
+                    with st.container():
+                        col_1, col_2 = st.columns(2)
+                        with col_1:
+                            cat_2 = st.selectbox('Graphe 3', dict_cat.keys(), index=2, key=8)
+                            selec_3 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=9)
+                            pie_bar_display(data_comp, data_test, dict_cat[cat_2], ide, selec_3)
+                        with col_2:
+                            cat_3 = st.selectbox('Graphe 4', dict_cat.keys(), index=3, key=10)
+                            selec_4 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=11)
+                            pie_bar_display(data_comp, data_test, dict_cat[cat_3], ide, selec_4)
 
     st.markdown("Auteur: Stéphane LUBIN")
 
