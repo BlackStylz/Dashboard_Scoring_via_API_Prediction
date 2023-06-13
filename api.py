@@ -46,13 +46,14 @@ def prediction(id : int):
     #Chargement du modèle
     X = pd.DataFrame(df.loc[id, :]).T
     proba = clf.predict_proba(X)[:,1][0]
+    del X
     pred = (proba > 0.424)
     pred = np.multiply(pred, 1)
     score = score_proba(proba)
     pred = int(pred)
     score = str(score)
     result = {'prediction': pred, 'probabilité':proba, 'score': score}
-    del X, proba, pred, score
+    del proba, pred, score
     gc.collect()
     return result
 
