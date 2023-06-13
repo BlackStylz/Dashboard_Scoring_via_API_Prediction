@@ -15,7 +15,7 @@ app = FastAPI()
 
 
 df = pd.read_csv('./Data/test_api.csv', index_col='SK_ID_CURR')
-df.drop(['Unnamed: 0'], axis=1, inplace= True)
+df.drop(['Unnamed: 0','Unnamed: 0.1','TARGET'], axis=1, inplace= True)
 feats =  list(df.columns)
 model = joblib.load('model_sans_seuil.sav')
 clf = model['classifier']
