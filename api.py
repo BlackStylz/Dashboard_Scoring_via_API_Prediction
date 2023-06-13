@@ -15,13 +15,11 @@ app = FastAPI()
 
 
 df = pd.read_csv('./Data/test_api.csv', index_col='SK_ID_CURR')
-df.drop(['TARGET', 'Unnamed: 0'], axis=1, inplace= True)
-# df_t= pd.read_csv('./Data/train_op.csv', index_col='SK_ID_CURR')
-# df_t.drop(['TARGET', 'Unnamed: 0'], axis=1, inplace= True)
+df.drop(['Unnamed: 0'], axis=1, inplace= True)
 feats =  list(df.columns)
 model = joblib.load('model_sans_seuil.sav')
 clf = model['classifier']
-explainer = shap.Explainer(clf)#,df_t)
+explainer = shap.Explainer(clf,df)
 del model
 gc.collect()
 
