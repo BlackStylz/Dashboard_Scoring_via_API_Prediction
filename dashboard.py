@@ -129,12 +129,12 @@ def shap_glob():
 
 @st.cache_data(persist = True)
 def shapey_display(df_l):
- ## Fonction pour afficher les features importance local
+ ## Fonction pour afficher les features importance locales
     st.write("Local")
     fig, ax = plt.subplots(figsize=(20, 10), dpi= 80)
     ax = plt.gca()
     plt.hlines(y=df_l.index, xmin=0, xmax=df_l['valeurs'], alpha=0.4, color=df_l['colors'], linewidth=50)
-    plt.gca().set(ylabel='$Features$', xlabel='$features Importance$')
+    plt.gca().set(ylabel='$Features$', xlabel='$features Importance$', fontsize=18)
     plt.yticks(df_l.index, df_l['features'], fontsize=18)
     st.pyplot(fig)
 
@@ -323,8 +323,11 @@ def main():
 ##### Partie Comparaison
         if st.sidebar.checkbox('Comparaison', False):
             st.markdown("<h2 style='text-align: center;'>Comparaison du client: {}</h2>".format(ide), unsafe_allow_html=True)
+      
+            side_col1, side_col2 = st.sidebar.columns(2)
 
- ##### Partie Quantitative            
+ ##### Partie Quantitative 
+            with side_col1:
             if st.sidebar.checkbox('Quantitative', False):
                 with st.container():
                     col1, col2 = st.columns(2)
@@ -345,6 +348,7 @@ def main():
                             disp_4 = st.selectbox('Graphe 4', dict_feat.keys(), index=4, key=4)
                             kde_display(data_comp, data_test, dict_feat[disp_4], ide)
 ##### Partie Catégorie
+            with side_col2:
             if st.sidebar.checkbox('Catégorie', False):
                 with st.container():
                     col1, col2 = st.columns(2)
