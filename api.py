@@ -19,7 +19,10 @@ df.drop(['Unnamed: 0'], axis=1, inplace= True)
 feats =  list(df.columns)
 model = joblib.load('model_sans_seuil.sav')
 clf = model['classifier']
-explainer = shap.Explainer(clf)
+explainer = shap.Explainer(clf,df)
+del model
+gc.collect()
+
 
 def score_proba(proba):
     if proba >= 0.5:
@@ -49,6 +52,8 @@ def prediction(id : int):
     pred = int(pred)
     score = str(score)
     result = {'prediction': pred, 'probabilité':proba, 'score': score}
+    del X, proba, pred, score
+    gc.collect()
     return result
 
 #SHAP features local
@@ -64,6 +69,8 @@ def feat_local(id:int):
         key = keys.astype('str').tolist()[0]
         val = shap_local_val.values.mean(axis=0)[arg]
         features_shap[key] = val
+    del X, shap_local_val, arg, df_temp, keys, key, val
+    gc.collect()
     return features_shap
 
 # #SHAP features globale
