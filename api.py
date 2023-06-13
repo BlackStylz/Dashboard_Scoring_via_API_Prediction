@@ -1,3 +1,6 @@
+### Script de conception de l'API pour la Prédiction et les features importance
+### Auteur: Stéphane LUBIN
+
 import shap
 import json
 import joblib
@@ -85,7 +88,3 @@ def feat_glob():
         val = abs(shap_val.values.mean(axis =0))[arg]
         features_shapey[key] = val
     return features_shapey
-
-
-#if __name__ == '__main__':
-#    uvicorn.run(app)
