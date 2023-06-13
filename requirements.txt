@@ -4,9 +4,8 @@ joblib
 pandas
 numpy
 uvicorn
+gunicorn
 fastapi
-pydantic
 requests
-matplotlib
-seaborn
-streamlit
+lightgbm
+imblearn
