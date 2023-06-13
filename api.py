@@ -13,6 +13,9 @@ from fastapi import FastAPI
 # Creation of the API
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return{'message':'API Credit Scoring'}
 
 df = pd.read_csv('./Data/test_api.csv', index_col='SK_ID_CURR')
 df.drop(['Unnamed: 0','Unnamed: 0.1','TARGET'], axis=1, inplace= True)
@@ -33,10 +36,6 @@ def score_proba(proba):
     else:
         score = 'A'
     return score
-
-@app.get("/")
-async def root():
-    return{'message':'API Credit Scoring'}
 
 
 # Prédiction
