@@ -20,7 +20,6 @@ feats =  list(df.columns)
 model = joblib.load('model_sans_seuil.sav')
 clf = model['classifier']
 #explainer = shap.Explainer(clf)
-del model
 gc.collect()
 
 
@@ -46,7 +45,6 @@ def prediction(id : int):
     #Chargement du modèle
     X = pd.DataFrame(df.loc[id, :]).T
     proba = clf.predict_proba(X)[:,1][0]
-    del X
     pred = (proba > 0.424)
     pred = np.multiply(pred, 1)
     score = score_proba(proba)
