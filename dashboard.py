@@ -347,7 +347,7 @@ def main():
                     with col2:
                         disp_3 = st.selectbox('Graphe 2', dict_feat.keys(), index=3, key=3)
                         kde_display(data_comp, data_test, dict_feat[disp_3], ide)
-                if st.checkbox('Afficher plus de graphe:', False):
+                if st.checkbox('Afficher plus de graphe:', False, key=123):
                     with st.container():
                         col_1, col_2 = st.columns(2)
                         with col_1:
@@ -370,7 +370,7 @@ def main():
                         cat_1 = st.selectbox('Graphe 2', dict_cat.keys(), index=1, key=7)
                         selec_1 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=6)
                         pie_bar_display(data_comp, data_test, dict_cat[cat_1], ide, selec_1)
-                if st.checkbox('Afficher plus de graphe:', False):
+                if st.checkbox('Afficher plus de graphe:', False, key=972):
                     with st.container():
                         col_1, col_2 = st.columns(2)
                         with col_1:
