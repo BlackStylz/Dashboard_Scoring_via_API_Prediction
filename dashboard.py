@@ -129,12 +129,7 @@ def shap_glob():
 
 @st.cache_data(persist = True)
 def shapey_display(df_l):
- #Fonction pour afficher features importance
-    #st.write(df_g)
-    #fig1, ax1 = plt.subplots(figsize=(8, 4))
-    #sns.barplot(df_g, y=df_g['features'], x=df_g['valeurs'], color='b', ax=ax1)
-    #st.pyplot(fig1)
-
+ ## Fonction pour afficher les features importance local
     st.write("Local")
     fig, ax = plt.subplots(figsize=(20, 10), dpi= 80)
     ax = plt.gca()
@@ -200,7 +195,8 @@ def main():
 #Chargement Data
     data_test, data_comp = data_load()
 #Sidebar
-    rech = st.sidebar.radio('Recherche client:', ('Saisie Manuelle','Selection'))
+    rech = st.sidebar.radio('Recherche client:', ('Saisie Manuelle','Selection') index=1)
+    #Saisie Manuelle
     if rech == 'Saisie Manuelle':
         ide = st.sidebar.number_input('Numéro identifiant client',
         min_value = data_test['SK_ID_CURR'].min(),
@@ -209,9 +205,11 @@ def main():
             st.sidebar.write("Erreur de saisir le numéro client n'est pas dans la liste")
         else:
             pass
+    #Liste de selection
     else:
         ide = st.sidebar.selectbox('Numéro identifiant client', data_test['SK_ID_CURR'])
-
+        
+# Listes pour pré-trier les features a afficher
     all = ['CODE_GENDER']
     base = ['AGE', 'NAME_FAMILY_STATUS','OCCUPATION_TYPE','JOB_SENIORITY','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT']
     all.extend(base)
@@ -221,6 +219,7 @@ def main():
     'NAME_CONTRACT_TYPE','NAME_HOUSING_TYPE','EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3']
     all.extend(details_inf)
 
+# Verification d'erreur et prédiction
     if ide in data_test['SK_ID_CURR'].values:
         resultat = prediction(ide)
         st.session_state['id'] = ide
@@ -279,10 +278,21 @@ def main():
                 plus, moins, df_local = shap_local(ide)
                 col1, col2 = st.columns(2)
                 with col1:
-                    st.write("Points forts")
-                    for i in plus:
-                        st.markdown("- " + i +"\n")
-
+#                     st.write("Points forts")
+#                     for i in plus:
+#                         st.markdown("- " + i +"\n")
+                    st.data_editor(
+                        plus,
+                        column_config={
+                            plus: st.column_config.TextColumn(
+                                "Points forts",
+                                help="Streamlit **widget** commands 🎈",
+                                default="st.",
+                                max_chars=50,
+                                validate="^st\.[a-z_]+$",
+                            )
+                        },
+                        hide_index=True,
                 with col2:
                     st.write("Points faibles")
                     for n in moins:
