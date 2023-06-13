@@ -182,7 +182,7 @@ def pie_bar_display(data, var, id,selec):
         if pd.isna(data[data['SK_ID_CURR']==id][var[0]].values):
              st.write("Comparaison impossible la donnée est manquante")
         else:
-            exp = index_list.index(data[data['SK_ID_CURR']==id][var[0]].values)
+            exp = index_list.index(data.loc[data['SK_ID_CURR']==id][var[0]].values)
             explode[exp] = 0.1
         fig, ax = plt.subplots()
         ax.pie(grade, explode=explode, labels=grade.index, autopct='%1.1f%%', colors =sns.color_palette('Blues_r'),
