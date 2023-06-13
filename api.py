@@ -71,19 +71,20 @@ def feat_local(id:int):
     gc.collect()
     return features_shap
 
-# #SHAP features globale
-# @app.get("/feat_glob")
-# def feat_glob():
-#     shap_val = explainer(df)
-#     features_shapey = {}
-#     for n in range (-1,-11,-1):
-#         arg = abs(shap_val.values.std(axis =0)).argsort()[n]
-#         df_temp = pd.DataFrame(feats)
-#         keys = df_temp.loc[arg,:].values
-#         key = keys.astype('str').tolist()[0]
-#         val = shap_val.values.std(axis =0)[arg]
-#         features_shapey[key] = val
-#     return features_shapey
+#SHAP features globale
+@app.get("/feat_glob")
+def feat_glob():
+    explainer = shap.Explainer(clf,df)
+    shap_val = explainer(df)
+    features_shapey = {}
+    for n in range (-1,-11,-1):
+        arg = abs(shap_val.values.mean(axis =0)).argsort()[n]
+        df_temp = pd.DataFrame(feats)
+        keys = df_temp.loc[arg,:].values
+        key = keys.astype('str').tolist()[0]
+        val = abs(shap_val.values.mean(axis =0))[arg]
+        features_shapey[key] = val
+    return features_shapey
 
 
 #if __name__ == '__main__':
