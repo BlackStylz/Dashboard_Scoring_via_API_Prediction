@@ -119,7 +119,7 @@ def shap_glob():
         response = res.json()
         resultat = response
     except:
-        st.write("Error from server: " + str(r.content))
+        st.write("Error from server: " + str(res.content))
         resultat = res
     resu_df = pd.DataFrame(data=resultat.items(), columns =['features', 'valeurs'])
     resu_df.sort_values('valeurs', ascending=False, inplace=True)
