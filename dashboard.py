@@ -175,7 +175,7 @@ def bi_display(data, yval, xval, id):
     else:
         sns.scatterplot( x= data[xval[0]].loc[data['SK_ID_CURR']==id], 
         y = data[yval[0]].loc[data['SK_ID_CURR']==id], color='r')
-    ax.set(xlabel=xval[1], ylabel=xval[1])
+    ax.set(xlabel=xval[1], ylabel=yval[1])
     ax.legend()
     st.pyplot(fig)
 
