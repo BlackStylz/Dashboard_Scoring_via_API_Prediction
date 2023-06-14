@@ -415,7 +415,7 @@ def main():
                     with col1:
                         bi_x = st.selectbox('Graphe 1, valeur X', dict_feat.keys(), index=2, key=1209)
                         bi_y = st.selectbox('Graphe 1, valeur Y', dict_feat.keys(), index=3, key=190)
-                        bi_display(data_test, dict_feat[bi_y2], dict_feat[bi_x2], ide)
+                        bi_display(data_test, dict_feat[bi_y], dict_feat[bi_x], ide)
 
                     with col2:
                         bi_x2 = st.selectbox('Graphe 2, valeur X', dict_feat.keys(), index=2, key=3636)
