@@ -163,6 +163,21 @@ def kde_display(train, test, comp, id):
     ax.set(title=comp[1], xlabel=comp[2], ylabel='Densité')
     ax.legend()
     st.pyplot(fig)
+    
+@st.cache_data(persist = True)
+def bi_display(data, yval, xval, id):
+    #Fonction qui permet d'afficher des scatterplot pour analyse bi-variré
+    sns.set_theme()
+    fig, ax = plt.subplots(figsize=(8, 4))
+    sns.scatterplot( x= data[xval[0]], y = data[yval[0]])
+    if pd.isna(data[data['SK_ID_CURR']==id][yval[0]].values) | pd.isna(data[data['SK_ID_CURR']==id][xval[0]].values):
+        st.write("Comparaison impossible la donnée est manquante")
+    else:
+        sns.scatterplot( x= data[xval[0]].loc[data['SK_ID_CURR']==id], 
+        y = data[yval[0]].loc[data['SK_ID_CURR']==id], color='r')
+    ax.set(xlabel=xval[1], ylabel=xval[1])
+    ax.legend()
+    st.pyplot(fig)
 
 @st.cache_data(persist = True)
 def pie_bar_display(data, data_t, var, id,selec):
@@ -392,6 +407,20 @@ def main():
                             cat_3 = st.selectbox('Graphe 4', dict_cat.keys(), index=3, key=10)
                             selec_4 = st.radio("Afficher", ['Countplot','Pie chart'], horizontal= True, key=11)
                             pie_bar_display(data_comp, data_test, dict_cat[cat_3], ide, selec_4)
+ ### Partie Bivarié
+
+            if st.sidebar.checkbox('Bivarié', False):
+                with st.container():
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        bi_x = st.selectbox('Graphe 1, valeur X', dict_feat.keys(), index=2, key=1209)
+                        bi_y = st.selectbox('Graphe 1, valeur Y', dict_feat.keys(), index=3, key=190)
+                        bi_display(data_test, dict_feat[bi_y2], dict_feat[bi_x2], ide)
+
+                    with col2:
+                        bi_x2 = st.selectbox('Graphe 2, valeur X', dict_feat.keys(), index=2, key=3636)
+                        bi_y2 = st.selectbox('Graphe 2, valeur Y', dict_feat.keys(), index=5, key=3098)
+                        bi_display(data_test, dict_feat[bi_y2], dict_feat[bi_x2], ide)
 
     st.markdown("Auteur: Stéphane LUBIN")
 
