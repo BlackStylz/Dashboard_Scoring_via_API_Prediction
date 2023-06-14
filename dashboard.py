@@ -130,6 +130,7 @@ def shap_glob():
 @st.cache_data(persist = True)
 def shapey_display(df_g, df_l):
  ## Fonction pour afficher les features importance locales et globales
+ ## Features locales 
     sns.set_theme()
     st.write("Local")
     fig, ax = plt.subplots(figsize=(20, 10), dpi= 80)
@@ -138,7 +139,8 @@ def shapey_display(df_g, df_l):
     plt.gca().set(ylabel='$Features$', xlabel='$features Importance$')
     plt.yticks(df_l.index, df_l['features'], fontsize=18)
     st.pyplot(fig)
-    
+ 
+ ## Features Globales 
     st.write("Global")
     temp = shap_glob()
     fig1, ax1 = plt.subplots(figsize=(8, 4))
@@ -149,10 +151,11 @@ def shapey_display(df_g, df_l):
 
 @st.cache_data(persist = True)
 def kde_display(train, test, comp, id):
-#Fonction qui permet d'afficher les distribution des variables
+#Fonction qui permet d'afficher les distribution des variables quantitatives
     sns.set_theme()
     fig, ax = plt.subplots(figsize=(8, 4))
     sns.kdeplot(train[comp[0]], color ='blue', ax=ax)
+    #Verification que la donnée ne soit pas manquante
     if pd.isna(test[test['SK_ID_CURR']==id][comp[0]].values):
         st.write("Comparaison impossible la donnée est manquante")
     else:
@@ -163,7 +166,7 @@ def kde_display(train, test, comp, id):
 
 @st.cache_data(persist = True)
 def pie_bar_display(data, data_t, var, id,selec):
-#Fonction qui permet d'afficher les countplot et les pie chart
+#Fonction qui permet d'afficher les countplot et les pie chart des variable catégorielles
 ## Countplot
     sns.set_theme()
     if selec == 'Countplot':
@@ -184,6 +187,7 @@ def pie_bar_display(data, data_t, var, id,selec):
         grade_l= grade.sort_index()
         explode = np.array([0.0 for i in range(grade_l.shape[0])])
         index_list = grade_l.index.tolist()
+        # verification donnée manquante
         if pd.isna(data_t[data_t['SK_ID_CURR']==id][var[0]].values):
              st.write("Comparaison impossible la donnée est manquante")
         else:
@@ -240,31 +244,35 @@ def main():
             inf = ['CODE_GENDER']
             st.markdown('Groupe des informations à afficher')
             col1, col2, col3 = st.columns(3)
+            #Checkbox pour afficher et enlever les données dites de base
             with col1:
                 if st.checkbox('Base', False):
                     inf.extend(base)
                 else:
                     if base in inf:
                         inf.remove(base)
+            #Checkbox pour afficher et enlever les données dites civiles complémentaires
             with col2:
                 if st.checkbox('Civils comp.', False):
                     inf.extend(details_inf)
                 else:
                     if details_inf in inf:
                         inf.remove(details_inf)
+            #Checkbox pour afficher et enlever les données dites de revenus complémentaires
             with col3:
                 if st.checkbox('Inf. revenus', False):
                     inf.extend(details_perc)
                 else:
                     if details_perc in inf:
                         inf.remove(details_perc)
-
+            #Filtrage directement des variables à afficher
             info = st.multiselect("Sélection détaillée des informations à afficher", all, default = inf)
             st.write(data_test[info].loc[data_test['SK_ID_CURR']==ide])
 
 ##### Partie Affichage Score et prédiction
         if st.sidebar.checkbox('Score et prédiction', False):
             st.markdown("<h2 style='text-align: center;'>Score et prédiction du client: {}</h2>".format(ide), unsafe_allow_html=True)
+      #Client accepté
             if  resultat['prediction'] == 0:
                 st.markdown("<h2 style='text-align: center; color: green;'>APPROUVE</h2>", unsafe_allow_html=True)
                 if resultat['score'] == 'A':
@@ -273,6 +281,7 @@ def main():
                     st.image('images/Score-B.png')
                 else:
                     pass
+        #Client refusé
             elif resultat['prediction'] == 1:
                 st.markdown("<h2 style='text-align: center; color: red;'>REFUSE</h2>", unsafe_allow_html=True)
                 if resultat['score'] == 'C':
@@ -287,6 +296,7 @@ def main():
             with st.container():
                 plus, moins, df_local = shap_local(ide)
                 col1, col2 = st.columns(2)
+        #Points forts clients
                 with col1:
                     data_df = pd.DataFrame(
                       {
@@ -306,6 +316,7 @@ def main():
                       },
                       hide_index=True,
                     )
+                # Points faibles clients
                 with col2:
                     data_df = pd.DataFrame(
                       {
@@ -326,7 +337,7 @@ def main():
                       hide_index=True,
                     )
 
-
+#Affichage features importances
             if st.checkbox('Afficher graphe', False):
               df_glob = shap_glob()
               shapey_display(df_glob,df_local)
