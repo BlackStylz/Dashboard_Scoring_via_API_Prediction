@@ -12,3 +12,4 @@ l'API pour la prédiction est sur la branch api, elle prend l'id client puis ren
 
 ## Le Dashboard
 le dashboard concu avec streamlit permet de visisualiser la prédiction, le score, et d'autres variables du dataset ainsi que les features importance de chaque client
+![dash score](https://github.com/BlackStylz/Dashboard_Scoring_via_API_Prediction/assets/92699143/fb3f201c-2986-42a7-95b2-cb0eb55c7399)
